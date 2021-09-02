@@ -5,6 +5,7 @@ from torch.utils.data import DataLoader
 from dataset.e_piano import create_epiano_datasets, compute_epiano_accuracy
 
 from model.music_transformer import MusicTransformer
+from model.music_lstm import MusicLSTM
 
 from utilities.constants import *
 from utilities.device import get_device, use_cuda
@@ -34,9 +35,16 @@ def main():
 
     test_loader = DataLoader(test_dataset, batch_size=args.batch_size, num_workers=args.n_workers)
 
-    model = MusicTransformer(n_layers=args.n_layers, num_heads=args.num_heads,
-                d_model=args.d_model, dim_feedforward=args.dim_feedforward,
-                max_sequence=args.max_sequence, rpr=args.rpr).to(get_device())
+    if(args.model == "lstm"):
+        model = MusicLSTM(n_layers=args.n_layers, 
+            d_model=args.d_model, 
+            max_sequence=args.max_sequence).to(get_device())
+    elif(args.model == "transformer"):
+        model = MusicTransformer(n_layers=args.n_layers, num_heads=args.num_heads,
+                    d_model=args.d_model, dim_feedforward=args.dim_feedforward, dropout=args.dropout,
+                    max_sequence=args.max_sequence, rpr=args.rpr).to(get_device())
+    else:
+        print(args.model," not supported")
 
     model.load_state_dict(torch.load(args.model_weights))
 
