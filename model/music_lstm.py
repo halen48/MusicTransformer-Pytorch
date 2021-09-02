@@ -6,38 +6,64 @@ import random
 from utilities.constants import *
 from utilities.device import get_device
 
+from .positional_encoding import PositionalEncoding
+
+# MusicTransformer
 class MusicLSTM(nn.Module):
     """
     ----------
     Author: Guilherme Novaes
     ----------
-    ----------
     """
 
-    def __init__(self, d_model=512, max_sequence=2048):
+    def __init__(self, d_model=512, 
+                 dropout=0.1, max_sequence=2048, rpr=False):
         super(MusicLSTM, self).__init__()
 
+
         self.d_model    = d_model
+        self.dropout    = dropout
         self.max_seq    = max_sequence
 
         # Input embedding
         self.embedding = nn.Embedding(VOCAB_SIZE, self.d_model)
 
-        self.lstm = nn.LSTM(self.d_model*self.max_seq, self.d_model)
+        # Positional encoding
+        self.positional_encoding = PositionalEncoding(self.d_model, self.dropout, self.max_seq)
+
+        self.lstm = nn.LSTM(self.max_sequence, self.d_model)
 
         # Final output is a softmaxed linear layer
         self.Wout       = nn.Linear(self.d_model, VOCAB_SIZE)
         self.softmax    = nn.Softmax(dim=-1)
 
     # forward
-    def forward(self, x):
-
+    def forward(self, x, mask=True):
+        """
+        ----------
+        Author: Guilherme Novaes
+        ----------
+        """
         tam_dims = len(x)
+        
         x = self.embedding(x)
-        x, _ = self.lstm(x.view(tam_dims, 1, -1))
-        x = self.hidden2tag(x.view(tam_dims, -1))        
-        y = self.Wout(x)
 
+        # Input shape is (max_seq, batch_size, d_model)
+        x = x.permute(1,0,2)
+
+        x = self.positional_encoding(x)
+
+        x, _ = self.lstm(x.view(tam_dims, 1, -1))
+
+        # Back to (batch_size, max_seq, d_model)
+        x_out = x_out.permute(1,0,2)
+
+        y = self.Wout(x_out)
+        # y = self.softmax(y)
+
+        del mask
+
+        # They are trained to predict the next note in sequence (we don't need the last one)
         return y
 
     # generate
