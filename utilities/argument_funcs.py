@@ -40,6 +40,8 @@ def parse_train_args():
     parser.add_argument("-dim_feedforward", type=int, default=1024, help="Dimension of the feedforward layer")
 
     parser.add_argument("-dropout", type=float, default=0.1, help="Dropout rate")
+    
+    parser.add_argument("-model", type=str, default="transformer", help="Transformer/LSTM")
 
     return parser.parse_args()
 
