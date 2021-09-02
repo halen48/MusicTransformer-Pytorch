@@ -1,9 +1,9 @@
 # Music Transformer
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/asigalov61/SuperPiano/blob/master/Super_Piano_3.ipynb)
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1yjstXESCz-R_n3Z6254KrDpKWL-5CMvy?usp=sharing)
 
 Currently supports Pytorch >= 1.2.0 with Python >= 3.6  
 
-There is now a much friendlier [Google Colab version](https://github.com/asigalov61/SuperPiano/blob/master/Super_Piano_3.ipynb) of this project courtesy of [Alex](https://github.com/asigalov61)! 
+There is now a much friendlier [Google Colab version](https://colab.research.google.com/drive/1yjstXESCz-R_n3Z6254KrDpKWL-5CMvy?usp=sharing) of this project courtesy of [Alex](https://github.com/asigalov61)! 
 
 ## About
 This is a reproduction of the MusicTransformer (Huang et al., 2018) for Pytorch. This implementation utilizes the generic Transformer implementation introduced in Pytorch 1.2.0 (https://pytorch.org/docs/stable/nn.html#torch.nn.Transformer).
