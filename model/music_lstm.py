@@ -23,7 +23,7 @@ class MusicLSTM(nn.Module):
         # Input embedding
         self.embedding = nn.Embedding(VOCAB_SIZE, self.d_model)
 
-        self.lstm = nn.LSTM(self.d_model*self.d_model, self.d_model)
+        self.lstm = nn.LSTM(self.d_model*self.max_seq, self.d_model)
 
         # Final output is a softmaxed linear layer
         self.Wout       = nn.Linear(self.d_model, VOCAB_SIZE)
