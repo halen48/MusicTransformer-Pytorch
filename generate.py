@@ -7,6 +7,7 @@ from third_party.midi_processor.processor import decode_midi, encode_midi
 
 from utilities.argument_funcs import parse_generate_args, print_generate_args
 from model.music_transformer import MusicTransformer
+from model.music_lstm import MusicLSTM
 from dataset.e_piano import create_epiano_datasets, compute_epiano_accuracy, process_midi
 from torch.utils.data import DataLoader
 from torch.optim import Adam
@@ -61,9 +62,17 @@ def main():
 
         print("Using primer file:", f)
 
-    model = MusicTransformer(n_layers=args.n_layers, num_heads=args.num_heads,
-                d_model=args.d_model, dim_feedforward=args.dim_feedforward,
-                max_sequence=args.max_sequence, rpr=args.rpr).to(get_device())
+        
+    if(args.model == "lstm"):
+        model = MusicLSTM(n_layers=args.n_layers, 
+            d_model=args.d_model, 
+            max_sequence=args.max_sequence).to(get_device())
+    elif(args.model == "transformer"):
+        model = MusicTransformer(n_layers=args.n_layers, num_heads=args.num_heads,
+                    d_model=args.d_model, dim_feedforward=args.dim_feedforward, dropout=args.dropout,
+                    max_sequence=args.max_sequence, rpr=args.rpr).to(get_device())
+    else:
+        print(args.model," not supported")
 
     model.load_state_dict(torch.load(args.model_weights))
 
