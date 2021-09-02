@@ -6,7 +6,7 @@ import random
 from utilities.constants import *
 from utilities.device import get_device
 
-class MusicLTSM(nn.Module):
+class MusicLSTM(nn.Module):
     """
     ----------
     Author: Guilherme Novaes
@@ -15,7 +15,7 @@ class MusicLTSM(nn.Module):
     """
 
     def __init__(self, n_layers=6, d_model=512, max_sequence=2048):
-        super(MusicLTSM, self).__init__()
+        super(MusicLSTM, self).__init__()
 
         self.dummy      = DummyDecoder()
 
@@ -26,7 +26,7 @@ class MusicLTSM(nn.Module):
         # Input embedding
         self.embedding = nn.Embedding(VOCAB_SIZE, self.d_model)
 
-        self.ltsm = nn.LSTM(self.nlayers, self.d_model)
+        self.lstm = nn.LSTM(self.nlayers, self.d_model)
 
         # Final output is a softmaxed linear layer
         self.Wout       = nn.Linear(self.d_model, VOCAB_SIZE)
