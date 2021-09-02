@@ -14,17 +14,16 @@ class MusicLSTM(nn.Module):
     ----------
     """
 
-    def __init__(self, n_layers=6, d_model=512, max_sequence=2048):
+    def __init__(self, d_model=512, max_sequence=2048):
         super(MusicLSTM, self).__init__()
 
-        self.nlayers    = n_layers
         self.d_model    = d_model
         self.max_seq    = max_sequence
 
         # Input embedding
         self.embedding = nn.Embedding(VOCAB_SIZE, self.d_model)
 
-        self.lstm = nn.LSTM(self.nlayers, self.d_model)
+        self.lstm = nn.LSTM(self.d_model*self.d_model, self.d_model)
 
         # Final output is a softmaxed linear layer
         self.Wout       = nn.Linear(self.d_model, VOCAB_SIZE)
