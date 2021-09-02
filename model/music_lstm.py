@@ -17,8 +17,6 @@ class MusicLSTM(nn.Module):
     def __init__(self, n_layers=6, d_model=512, max_sequence=2048):
         super(MusicLSTM, self).__init__()
 
-        self.dummy      = DummyDecoder()
-
         self.nlayers    = n_layers
         self.d_model    = d_model
         self.max_seq    = max_sequence
