@@ -110,6 +110,8 @@ def parse_eval_args():
     parser.add_argument("-d_model", type=int, default=512, help="Dimension of the model (output dim of embedding layers, etc.)")
 
     parser.add_argument("-dim_feedforward", type=int, default=1024, help="Dimension of the feedforward layer")
+    
+    parser.add_argument("-model", type=str, default="transformer", help="Transformer/LSTM")
 
     return parser.parse_args()
 
@@ -170,6 +172,8 @@ def parse_generate_args():
     parser.add_argument("-d_model", type=int, default=512, help="Dimension of the model (output dim of embedding layers, etc.)")
 
     parser.add_argument("-dim_feedforward", type=int, default=1024, help="Dimension of the feedforward layer")
+    
+    parser.add_argument("-model", type=str, default="transformer", help="Transformer/LSTM")
 
     return parser.parse_args()
 
