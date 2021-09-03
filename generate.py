@@ -62,10 +62,10 @@ def main():
 
         print("Using primer file:", f)
 
-        
     if(args.model == "lstm"):
-        model = MusicLSTM(d_model=args.d_model, 
-            max_sequence=args.max_sequence).to(get_device())
+        model = MusicLSTM(input_size=args.d_model, 
+            layers=args.batch_size,
+            hidden_cells=args.hidden_cells, ).to(get_device())
     elif(args.model == "transformer"):
         model = MusicTransformer(n_layers=args.n_layers, num_heads=args.num_heads,
                     d_model=args.d_model, dim_feedforward=args.dim_feedforward, dropout=args.dropout,
