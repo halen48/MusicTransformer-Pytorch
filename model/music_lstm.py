@@ -34,7 +34,7 @@ class MusicLSTM(nn.Module):
         self.softmax    = nn.Softmax(dim=-1)
 
     # forward
-    def forward(self, x, index=[0]):
+    def forward(self, x):
         """
         ----------
         Author: Guilherme Novaes
@@ -44,8 +44,6 @@ class MusicLSTM(nn.Module):
         x = self.embedding(x)
 
         x, _ = self.lstm(x)
-        print(index[0])
-        index[0] += 1
 
         y = self.Wout(x)
 
