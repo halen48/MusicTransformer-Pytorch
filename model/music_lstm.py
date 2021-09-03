@@ -31,37 +31,37 @@ class MusicLSTM(nn.Module):
         # Positional encoding
         self.positional_encoding = PositionalEncoding(self.d_model, self.dropout, self.max_seq)
 
-        self.lstm = nn.LSTM(self.max_sequence, self.d_model)
+        self.lstm = nn.LSTM(self.d_model, self.max_seq, 4)
 
         # Final output is a softmaxed linear layer
         self.Wout       = nn.Linear(self.d_model, VOCAB_SIZE)
         self.softmax    = nn.Softmax(dim=-1)
 
     # forward
-    def forward(self, x, mask=True):
+    def forward(self, x):
         """
         ----------
         Author: Guilherme Novaes
         ----------
         """
-        tam_dims = len(x)
         
+        print(x.shape)
         x = self.embedding(x)
 
         # Input shape is (max_seq, batch_size, d_model)
-        x = x.permute(1,0,2)
+        #x = x.permute(1,0,2)
 
-        x = self.positional_encoding(x)
+        #x = self.positional_encoding(x)
 
-        x, _ = self.lstm(x.view(tam_dims, 1, -1))
+        print(x.shape)
+        print([self.max_seq, self.d_model, 4])
+
+        x, _ = self.lstm(x)
 
         # Back to (batch_size, max_seq, d_model)
-        x_out = x_out.permute(1,0,2)
+        #x_out = x_out.permute(1,0,2)
 
-        y = self.Wout(x_out)
-        # y = self.softmax(y)
-
-        del mask
+        y = self.Wout(x)
 
         # They are trained to predict the next note in sequence (we don't need the last one)
         return y
