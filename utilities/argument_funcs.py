@@ -38,11 +38,14 @@ def parse_train_args():
     parser.add_argument("-d_model", type=int, default=512, help="Dimension of the model (output dim of embedding layers, etc.)")
 
     parser.add_argument("-dim_feedforward", type=int, default=1024, help="Dimension of the feedforward layer")
-
+    
     parser.add_argument("-dropout", type=float, default=0.1, help="Dropout rate")
     
     parser.add_argument("-model", type=str, default="transformer", help="Transformer/LSTM")
 
+    parser.add_argument("-hidden_cells", type=int, default=512, help="LSTM Hidden Cells")
+    parser.add_argument("-input_size", type=int, default=64, help="LSTM Input Cells")
+    
     return parser.parse_args()
 
 # print_train_args
