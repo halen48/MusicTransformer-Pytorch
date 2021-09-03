@@ -115,6 +115,9 @@ def parse_eval_args():
     parser.add_argument("-dim_feedforward", type=int, default=1024, help="Dimension of the feedforward layer")
     
     parser.add_argument("-model", type=str, default="transformer", help="Transformer/LSTM")
+    
+    parser.add_argument("-hidden_cells", type=int, default=512, help="LSTM Hidden Cells")
+    parser.add_argument("-input_size", type=int, default=64, help="LSTM Input Cells")
 
     return parser.parse_args()
 
@@ -177,6 +180,9 @@ def parse_generate_args():
     parser.add_argument("-dim_feedforward", type=int, default=1024, help="Dimension of the feedforward layer")
     
     parser.add_argument("-model", type=str, default="transformer", help="Transformer/LSTM")
+    
+    parser.add_argument("-hidden_cells", type=int, default=512, help="LSTM Hidden Cells")
+    parser.add_argument("-input_size", type=int, default=64, help="LSTM Input Cells")
 
     return parser.parse_args()
 
