@@ -6,7 +6,6 @@ import random
 from utilities.constants import *
 from utilities.device import get_device
 
-from .positional_encoding import PositionalEncoding
 
 # MusicTransformer
 class MusicLSTM(nn.Module):
@@ -16,50 +15,38 @@ class MusicLSTM(nn.Module):
     ----------
     """
 
-    def __init__(self, d_model=512, 
-                 dropout=0.1, max_sequence=2048, rpr=False):
+    def __init__(self, input_size=64, batch_size=4,
+                 dropout=0.1, hidden_cells = 512):
         super(MusicLSTM, self).__init__()
 
 
-        self.d_model    = d_model
+        self.input_size    = input_size
         self.dropout    = dropout
-        self.max_seq    = max_sequence
+        self.hidden_cells    = hidden_cells
+        self.layers = batch_size
 
         # Input embedding
-        self.embedding = nn.Embedding(VOCAB_SIZE, self.d_model)
+        self.embedding = nn.Embedding(VOCAB_SIZE, self.input_size)
 
-        # Positional encoding
-        self.positional_encoding = PositionalEncoding(self.d_model, self.dropout, self.max_seq)
-
-        self.lstm = nn.LSTM(self.d_model, self.max_seq, 4)
+        self.lstm = nn.LSTM(self.input_size, self.hidden_cells, self.layers)
 
         # Final output is a softmaxed linear layer
-        self.Wout       = nn.Linear(self.d_model, VOCAB_SIZE)
+        self.Wout       = nn.Linear(self.input_size, VOCAB_SIZE)
         self.softmax    = nn.Softmax(dim=-1)
 
     # forward
-    def forward(self, x):
+    def forward(self, x, index=[0]):
         """
         ----------
         Author: Guilherme Novaes
         ----------
         """
         
-        print(x.shape)
         x = self.embedding(x)
 
-        # Input shape is (max_seq, batch_size, d_model)
-        #x = x.permute(1,0,2)
-
-        #x = self.positional_encoding(x)
-
-        print(x.shape)
-        print([self.max_seq, self.d_model, 4])
-
         x, _ = self.lstm(x)
-
-        # Back to (batch_size, max_seq, d_model)
-        #x_out = x_out.permute(1,0,2)
+        print(index[0])
+        index[0] += 1
 
         y = self.Wout(x)
 
