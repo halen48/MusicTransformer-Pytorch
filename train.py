@@ -85,7 +85,9 @@ def main():
                     max_sequence=args.max_sequence, rpr=args.rpr).to(get_device())
     else:
         print(args.model," not supported")
-
+    
+    print(model)
+    
     ##### Continuing from previous training session #####
     start_epoch = BASELINE_EPOCH
     if(args.continue_weights is not None):
