@@ -183,6 +183,7 @@ def parse_generate_args():
     
     parser.add_argument("-hidden_cells", type=int, default=512, help="LSTM Hidden Cells")
     parser.add_argument("-input_size", type=int, default=64, help="LSTM Input Cells")
+    parser.add_argument("-batch_size", type=int, default=2, help="Batch size to use")
 
     return parser.parse_args()
 
