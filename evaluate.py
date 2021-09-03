@@ -36,7 +36,7 @@ def main():
     test_loader = DataLoader(test_dataset, batch_size=args.batch_size, num_workers=args.n_workers)
 
     if(args.model == "lstm"):
-        model = MusicLSTM(input_size=args.d_model, 
+        model = MusicLSTM(input_size=args.input_size, 
             layers=args.batch_size,
             hidden_cells=args.hidden_cells ).to(get_device())
     elif(args.model == "transformer"):
