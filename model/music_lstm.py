@@ -16,7 +16,7 @@ class MusicLSTM(nn.Module):
     """
 
     def __init__(self, input_size=1, layers=4,
-                 self.dropout=0.2
+                 self.dropout=0.2,
                  hidden_cells = 512):
         super(MusicLSTM, self).__init__()
 
