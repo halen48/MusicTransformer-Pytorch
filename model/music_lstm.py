@@ -33,7 +33,6 @@ class MusicLSTM(nn.Module):
 
         # Final output is a softmaxed linear layer
         self.Wout       = nn.Linear(self.hidden_cells, VOCAB_SIZE)
-        self.softmax    = nn.Softmax(dim=-1)
 
     # forward
     def forward(self, x):
