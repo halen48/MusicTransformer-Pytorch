@@ -16,7 +16,7 @@ from utilities.constants import *
 from utilities.device import get_device, use_cuda
 
 # main
-def main(name=[0]):
+def main():
     """
     ----------
     Author: Damon Gwinn
@@ -76,7 +76,7 @@ def main(name=[0]):
     model.load_state_dict(torch.load(args.model_weights))
 
     # Saving primer first
-    f_path = os.path.join(args.output_dir, "primer%d.mid"%name[0])
+    f_path = os.path.join(args.output_dir, "primer.mid")
     decode_midi(primer[:args.num_prime].cpu().numpy(), file_path=f_path)
     
     # GENERATION
@@ -86,15 +86,14 @@ def main(name=[0]):
             print("BEAM:", args.beam)
             beam_seq = model.generate(primer[:args.num_prime], args.target_seq_length, beam=args.beam)
 
-            f_path = os.path.join(args.output_dir, "beam%d.mid"%name[0])
+            f_path = os.path.join(args.output_dir, "beam.mid")
             decode_midi(beam_seq[0].cpu().numpy(), file_path=f_path)
         else:
             print("RAND DIST")
             rand_seq = model.generate(primer[:args.num_prime], args.target_seq_length, beam=0)
 
-            f_path = os.path.join(args.output_dir, "rand%d.mid"%name[0])
+            f_path = os.path.join(args.output_dir, "rand.mid")
             decode_midi(rand_seq[0].cpu().numpy(), file_path=f_path)
-    name+=1
 
 
 
