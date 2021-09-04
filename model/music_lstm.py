@@ -15,8 +15,9 @@ class MusicLSTM(nn.Module):
     ----------
     """
 
-    def __init__(self, input_size=32, layers=4,
-                 hidden_cells = 256):
+    def __init__(self, input_size=1, layers=4,
+                 self.dropout=0.2
+                 hidden_cells = 512):
         super(MusicLSTM, self).__init__()
 
 
@@ -27,7 +28,7 @@ class MusicLSTM(nn.Module):
         # Input embedding
         self.embedding = nn.Embedding(VOCAB_SIZE, self.input_size)
 
-        self.lstm = nn.LSTM(self.input_size, self.hidden_cells, self.layers)
+        self.lstm = nn.LSTM(self.input_size, self.hidden_cells, self.layers, dropout = self.dropout)
 
         # Final output is a softmaxed linear layer
         self.Wout       = nn.Linear(self.hidden_cells, VOCAB_SIZE)
