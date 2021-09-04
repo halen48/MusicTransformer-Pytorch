@@ -65,6 +65,7 @@ def main():
     if(args.model == "lstm"):
         model = MusicLSTM(input_size=args.input_size, 
             layers=args.batch_size,
+            dropout=args.dropout,
             hidden_cells=args.hidden_cells ).to(get_device())
     elif(args.model == "transformer"):
         model = MusicTransformer(n_layers=args.n_layers, num_heads=args.num_heads,
