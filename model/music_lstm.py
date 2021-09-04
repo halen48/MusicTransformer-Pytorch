@@ -16,7 +16,7 @@ class MusicLSTM(nn.Module):
     """
 
     def __init__(self, input_size=1, layers=4,
-                 self.dropout=0.2,
+                 dropout=0.2,
                  hidden_cells = 512):
         super(MusicLSTM, self).__init__()
 
@@ -24,6 +24,7 @@ class MusicLSTM(nn.Module):
         self.input_size    = input_size
         self.hidden_cells    = hidden_cells
         self.layers = layers
+        self.dropout = dropout
 
         # Input embedding
         self.embedding = nn.Embedding(VOCAB_SIZE, self.input_size)
