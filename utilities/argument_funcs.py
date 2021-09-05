@@ -111,6 +111,8 @@ def parse_eval_args():
     parser.add_argument("-n_layers", type=int, default=6, help="Number of decoder layers to use")
     parser.add_argument("-num_heads", type=int, default=8, help="Number of heads to use for multi-head attention")
     parser.add_argument("-d_model", type=int, default=512, help="Dimension of the model (output dim of embedding layers, etc.)")
+    
+    parser.add_argument("-dropout", type=float, default=0.1, help="Dropout rate")
 
     parser.add_argument("-dim_feedforward", type=int, default=1024, help="Dimension of the feedforward layer")
     
@@ -176,7 +178,9 @@ def parse_generate_args():
     parser.add_argument("-n_layers", type=int, default=6, help="Number of decoder layers to use")
     parser.add_argument("-num_heads", type=int, default=8, help="Number of heads to use for multi-head attention")
     parser.add_argument("-d_model", type=int, default=512, help="Dimension of the model (output dim of embedding layers, etc.)")
-
+    
+    parser.add_argument("-dropout", type=float, default=0.1, help="Dropout rate")
+    
     parser.add_argument("-dim_feedforward", type=int, default=1024, help="Dimension of the feedforward layer")
     
     parser.add_argument("-model", type=str, default="transformer", help="Transformer/LSTM")
